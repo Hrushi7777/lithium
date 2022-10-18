@@ -14,8 +14,47 @@ router.get('/students', function (req, res){
     res.send(students)
 })
 
+//example 1)
+router.get('/movies',function(req, res){
+    console.log("The path params in the request are : ", req.params)
+    let movies = [ "The Shining", "Insendies" ,"Rang de Basanti","Finding Nemo"]
+    res.send(movies)
+})
+//example 2)
 
-// Example 1 for path params
+ let movies =  [ "The Shining", "Insendies" ,"Rang de Basanti","Finding Nemo"]
+ router.get('/movies/:indexNumber',function(req,res){
+const myParams = req.params.indexNumber
+console.log(movies[myParams])
+res.send(movies[myParams])
+
+})
+
+//example 3)
+router.get('/movies/:indexNumber',function(req , res){
+    let myParams =req.params.indexNumber
+    const movies = [ "The Shining", "Insendies" ,"Rang de Basanti","Finding Nemo"]
+    let a = movies[myParams]
+    // if (movies.length>myParams){res.send(a)}
+    // else {res.send("this data is not valid")}
+   // movies.length>myParams?res.send(a):res.send("this data is not valid");
+   if(movies.length > myparam ){
+       res.send(a)
+   }else{
+       res.send("this data is not valid")
+   }
+}
+
+    //postman= localhost:3000/movies/0
+    //console.log("The path params in the request are : ", myParams)
+    //res.send('The movie name is ' + myParams.indexNumber )
+)
+//example 4)
+
+
+
+
+// Example 1 fstudents/:studentNameor path params
 router.get('/students/:studentName', function(req, res){
     // ':' denotes that the following part of route is a variable
     // The value of this variable is what we are sending in the request url after /students
@@ -40,4 +79,4 @@ router.get('/student-details/:name', function(req, res){
     res.send('Dummy response')
 })
 
-module.exports = router;
+module.exports = router
