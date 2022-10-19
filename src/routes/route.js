@@ -1,3 +1,4 @@
+const e = require('express');
 const express = require('express');
 const abc = require('../introduction/intro')
 const router = express.Router();
@@ -14,47 +15,8 @@ router.get('/students', function (req, res){
     res.send(students)
 })
 
-//example 1)
-router.get('/movies',function(req, res){
-    console.log("The path params in the request are : ", req.params)
-    let movies = [ "The Shining", "Insendies" ,"Rang de Basanti","Finding Nemo"]
-    res.send(movies)
-})
-//example 2)
 
- let movies =  [ "The Shining", "Insendies" ,"Rang de Basanti","Finding Nemo"]
- router.get('/movies/:indexNumber',function(req,res){
-const myParams = req.params.indexNumber
-console.log(movies[myParams])
-res.send(movies[myParams])
-
-})
-
-//example 3)
-router.get('/movies/:indexNumber',function(req , res){
-    let myParams =req.params.indexNumber
-    const movies = [ "The Shining", "Insendies" ,"Rang de Basanti","Finding Nemo"]
-    let a = movies[myParams]
-    // if (movies.length>myParams){res.send(a)}
-    // else {res.send("this data is not valid")}
-   // movies.length>myParams?res.send(a):res.send("this data is not valid");
-   if(movies.length > myparam ){
-       res.send(a)
-   }else{
-       res.send("this data is not valid")
-   }
-}
-
-    //postman= localhost:3000/movies/0
-    //console.log("The path params in the request are : ", myParams)
-    //res.send('The movie name is ' + myParams.indexNumber )
-)
-//example 4)
-
-
-
-
-// Example 1 fstudents/:studentNameor path params
+// Example 1 for path params
 router.get('/students/:studentName', function(req, res){
     // ':' denotes that the following part of route is a variable
     // The value of this variable is what we are sending in the request url after /students
@@ -78,5 +40,91 @@ router.get('/student-details/:name', function(req, res){
     console.log('Name of the student is ', studentName)
     res.send('Dummy response')
 })
+//e.g 1
+router.get("/movies", function(req, res){
+    console.log(req.params)
+    let movies =["The Shining", "Insendies" ,"Rang de Basanti","Finding Nemo"]
+    res.send(movies)
+})
 
-module.exports = router
+//e.g-2 and e.g-3
+router.get("/movies/:index", function(req, res){
+    let inParams =req.params
+    console.log(inParams)
+    const movies =[ "The Shining", "Insendies" ,"Rang de Basanti","Finding Nemo"]
+    if (inParams.index > movies.length -1){
+        res.send("out of the Index")
+    } else{
+        res.send(movies[inParams.index])
+    }
+})
+
+
+// e.g-4
+router.get("/films", function (req, res) {
+    const film =[
+        {
+            id:1,
+            name:"The Shining",
+        },
+        {
+            id:2,
+            name:"Insendies" ,
+        },
+        {
+            id:3,
+            name:"Rang de Basanti",
+        },
+        {
+            id:4,
+            name:"Finding Nemo",
+        },
+    ]
+    res.send(film);
+ });
+
+
+
+//e.g-5
+router.get("/films/:id",function(req, res ){
+    let idParam = req.params
+    const film=[
+        {
+            id:1,
+            name:"The Shining",
+        },
+        {
+            id:2,
+            name:"Insendies" ,
+        },
+        {
+            id:3,
+            name:"Rang de Basanti",
+        },
+        {
+            id:4,
+            name:"Finding Nemo",
+        },
+    ]
+    for (i of film){
+        if (idParam.id > film.length  || idParam.id ==0){
+            res.send("Wrong id = no movie is exit")
+        }
+        if (i.id ==idParam.id){
+            console.log(i)
+            res.send(i.name)
+        }
+    }
+    res.send ("enter valid")
+    console.log(idParam)
+    res.send(idParam.name)
+})
+
+ 
+
+module.exports = router;
+
+
+
+
+
